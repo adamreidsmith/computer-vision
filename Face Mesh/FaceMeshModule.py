@@ -52,6 +52,7 @@ class faceMeshDetector:
 
 def main():
     cap = cv2.VideoCapture('media/5.mp4')
+    max_fps = 30
     t_prev = 0
     detector = faceMeshDetector()
     while True:
@@ -59,6 +60,10 @@ def main():
         if not success: break
 
         img, faces = detector.find_face_mesh(img)
+        
+        elapsed = time.time() - t_prev
+        if 1/elapsed > max_fps:
+            time.sleep(1/max_fps - elapsed)
 
         t_now = time.time()
         fps = 1/(t_now - t_prev)
