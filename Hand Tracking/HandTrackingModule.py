@@ -58,8 +58,8 @@ def main():
         if not success: break
         img = detector.find_hands(img)
         lmk_list = detector.find_position(img)
-        if len(lmk_list) != 0:
-            print(lmk_list[0])
+#         if len(lmk_list) != 0:
+#             print(lmk_list[0])
 
         t_now = time.time()
         fps = 1/(t_now - t_prev)
