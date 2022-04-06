@@ -49,6 +49,7 @@ class handDetector:
 def main():
     cap = cv2.VideoCapture(0)
 
+    max_fps = 30
     t_prev = t_now = 0
 
     detector = handDetector()
@@ -59,6 +60,10 @@ def main():
         lmk_list = detector.find_position(img)
         if len(lmk_list) != 0:
             print(lmk_list[0])
+            
+        elapsed = time.time() - t_prev
+        if 1/elapsed > max_fps:
+            time.sleep(1/max_fps - elapsed)
 
         t_now = time.time()
         fps = 1/(t_now - t_prev)
