@@ -59,6 +59,7 @@ class poseDetector:
 
 def main():
     cap = cv2.VideoCapture('media/6.mp4')
+    max_fps = 30
     t_now = t_prev = 0
 
     detector = poseDetector()
@@ -70,8 +71,12 @@ def main():
 
         img = detector.find_pose(img)
         lmk_list = detector.find_position(img)
-        print(lmk_list)
-    
+#         print(lmk_list)
+
+        elapsed = time.time() - t_prev
+        if 1/elapsed > max_fps:
+            time.sleep(1/max_fps - elapsed)
+            
         t_now = time.time()
         fps = 1/(t_now - t_prev)
         t_prev = t_now
